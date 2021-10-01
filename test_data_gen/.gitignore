@@ -1,0 +1,4 @@
+**/__pycache__/
+**.wpr
+**/local_data/**/*.json
+**/local_data/**/*.csv
