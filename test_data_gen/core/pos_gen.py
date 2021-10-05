@@ -33,7 +33,9 @@ def generate(json_path):
     for time_val in range(
         -steps_per_second, math.ceil(2 * steps_per_second * root + steps_per_second), 1
     ):
-        time_stamp = (time_val / steps_per_second) - root # It was easier to define the curve such that apoapsis is at t=0
+        time_stamp = (
+            time_val / steps_per_second
+        ) - root  # It was easier to define the curve such that apoapsis is at t=0
         x_pos = a * (time_stamp + root)
         y_pos = b * (time_stamp + root)
         z_pos = h - (c * (time_stamp ** 2))
@@ -55,7 +57,9 @@ def generate(json_path):
             y_pos = y_last = 0
             z_pos = z_last = 0
         if math.remainder(message_num, steps_per_second) == 0:
-            print(str(100 * steps_per_second * time_stamp / math.ceil(2 * steps_per_second * root + steps_per_second))) # Prints message for every second of flight generated
+            print(
+                str(message_num / steps_per_second) + " seconds of data generated"
+            )  # Prints message for every second of flight generated
         df = df.append(
             pd.Series(
                 [
@@ -71,15 +75,13 @@ def generate(json_path):
         )
     pd.set_option("display.max_rows", None, "display.max_columns", None)
     print('Position data generation complete!')
-    df.to_csv(
+    csv_path = os.path.abspath(
         os.path.join(
             os.path.dirname(json_path), os.path.pardir, "generated", json_name + ".csv"
-        ),
+        )
+    )
+    df.to_csv(
+        csv_path,
         index=False,
     )
-    print(
-        'Position data saved to file: ' + os.path.dirname(json_path),
-        os.path.pardir,
-        "generated",
-        json_name + ".csv",
-    )
+    print('Position data saved to file: ' + csv_path)
