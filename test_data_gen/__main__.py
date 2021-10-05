@@ -18,7 +18,7 @@ def main():
     # TODO: Implement switch case to allow the user to select from a range of options, such as generate JSON, generate test data, etc.
     # Note: Switch cases are being implemented in Python 3.10, which is going to be released October 4th, 2021
     print(__doc__)
-    file_state = False
+    file_state = False  # Does the file exist?
     while file_state == False:  # TODO: exception handling
         json_name = input(
             "Specify the name of a JSON file (without extension) you would like to read from.\nIf no such file exists, you will be prompted if you would like to create it:\n"
@@ -35,6 +35,7 @@ def main():
                 core.json_gen.generate(json_name, json_path)
                 file_state = True
             else:
+                # TODO: Maybe add a way to escape out of this
                 file_state == False
         else:
             file_state = True
