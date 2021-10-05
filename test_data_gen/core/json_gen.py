@@ -17,11 +17,11 @@ def generate(json_name, json_path):
     x_range = float(input("Specify a max X distance (m): "))
     y_range = float(input("Specify a max Y distance (m): "))
     altitude = float(input("Specify a max altitude (m): "))
-    noise_level = float(input("Specify a noise level (not implemented): "))
-    steps_per_second = int(input("Specify how many steps per second: "))
+    noise_level = float(input("Specify a noise level (m, not implemented): "))
+    steps_per_second = int(input("Specify how many steps per second (int): "))
     notes = input("Notes: ")
     json_data = {
-        "json_name": json_name[0:-5],
+        "json_name": json_name[0:-5], # TODO: Use regex to get this from the json_path string
         "x_weight": (
             x_range / 2 * math.sqrt(9.80665 / altitude)
         ),  # Calculated based on standard gravity

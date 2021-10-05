@@ -12,6 +12,7 @@ Description: This module creates test data for parabolic trajectories in accorda
 import core.json_gen
 import core.pos_gen
 import os
+import regex
 
 
 def main():
@@ -21,9 +22,12 @@ def main():
     file_state = False  # Does the file exist?
     while file_state == False:  # TODO: exception handling
         json_name = input(
-            "Specify the name of a JSON file (without extension) you would like to read from.\nIf no such file exists, you will be prompted if you would like to create it:\n"
+            "Specify the name of a JSON file you would like to read from.\nIf no such file exists, you will be prompted if you would like to create it:\n"
         )
-        json_name = json_name + ".json"
+        # Regex matching so including file extension is optional
+        # Finds all instances of the string between any character and .json
+        if regex.findall(r'(.*)(?=.json)',json_name) == []:
+            json_name = json_name + '.json'
         json_path = os.path.join(
             os.path.dirname(os.path.realpath(__file__)), "local_data", "json", json_name
         )
