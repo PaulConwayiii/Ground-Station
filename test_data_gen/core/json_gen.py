@@ -9,20 +9,25 @@ Description: This file generates a JSON file containing the given user inputs.
 # Formatted with Black, the uncompromising Python code formatter.
 
 import json
+import math
 
 
 def generate(json_name, json_path):
     # TODO: input checking
-    x_weight = float(input("Specify an X axis weight: "))
-    y_weight = float(input("Specify an Y axis weight: "))
-    altitude = float(input("Specify a max altitude: "))
-    noise_level = float(input("Specify a noise level: "))
+    x_range = float(input("Specify a max X distance (m): "))
+    y_range = float(input("Specify a max Y distance (m): "))
+    altitude = float(input("Specify a max altitude (m): "))
+    noise_level = float(input("Specify a noise level (not implemented): "))
     steps_per_second = int(input("Specify how many steps per second: "))
     notes = input("Notes: ")
     json_data = {
         "json_name": json_name[0:-5],
-        "x_weight": x_weight,
-        "y_weight": y_weight,
+        "x_weight": (
+            x_range / 2 * math.sqrt(9.80665 / altitude)
+        ),  # Calculated based on standard gravity
+        "y_weight": (
+            y_range / 2 * math.sqrt(9.80665 / altitude)
+        ),  # Calculated based on standard gravity
         "altitude": altitude,
         "noise_level": noise_level,
         "steps_per_second": steps_per_second,
