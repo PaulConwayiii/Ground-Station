@@ -29,13 +29,14 @@ def generate(json_path):
     df = pd.DataFrame(columns=["message_num", "time", "x_pos", "y_pos", "z_pos"])
     # df.to_csv(os.path.join(os.path.dirname(json_path), os.path.pardir,'generated', json_name +'.csv'), index=False)
     root = math.sqrt(h / c)
-    for time_stamp in range(
-        -1, math.ceil(2 * steps_per_second * root + math.sqrt(steps_per_second)), 1
+    # range is defined such that the flight goes from 1 second before launch to 1 second after it contacts ground
+    for time_val in range(
+        -steps_per_second, math.ceil(2 * steps_per_second * root + steps_per_second), 1
     ):
-        time_val = (time_stamp / steps_per_second) - root
-        x_pos = a * (time_val + root)
-        y_pos = b * (time_val + root)
-        z_pos = h - (c * (time_val ** 2))
+        time_stamp = (time_val / steps_per_second) - root # It was easier to define the curve such that apoapsis is at t=0
+        x_pos = a * (time_stamp + root)
+        y_pos = b * (time_stamp + root)
+        z_pos = h - (c * (time_stamp ** 2))
         message_num = message_num + 1
         if z_pos > 0:  # Needed in case z becomes negative
             x_last = x_pos
@@ -43,7 +44,7 @@ def generate(json_path):
             z_last = z_pos
         elif (
             message_num > 1
-        ):  # If z < 0, sets the position such that it does not change (rocket has hit the ground)
+        ):  # If z < 0 later in flight, locks the current position (rocket has hit the ground)
             x_pos = x_last
             y_pos = y_last
             z_pos = 0
@@ -53,13 +54,13 @@ def generate(json_path):
             x_pos = x_last = 0
             y_pos = y_last = 0
             z_pos = z_last = 0
-        if math.remainder(message_num, 100) == True:
-            print(str(message_num))
+        if math.remainder(message_num, steps_per_second) == 0:
+            print(str(100 * steps_per_second * time_stamp / math.ceil(2 * steps_per_second * root + steps_per_second))) # Prints message for every second of flight generated
         df = df.append(
             pd.Series(
                 [
                     message_num,
-                    (time_val + root + (1 / steps_per_second)),
+                    (time_stamp + (root) + 1),
                     x_pos,
                     y_pos,
                     z_pos,
