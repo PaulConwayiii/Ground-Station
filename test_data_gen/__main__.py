@@ -21,8 +21,7 @@ def main():
     print(__doc__)
     file_state = False  # Does the file exist?
     while file_state == False:  # TODO: exception handling
-        json_name = input(
-            "Specify the name of a JSON file you would like to read from.\nIf no such file exists, you will be prompted if you would like to create it:\n"
+        json_name = input("Specify the name of a JSON file you would like to read from.\nIf no such file exists, you will be prompted if you would like to create it:\n"
         )
         # Regex matching so including file extension is optional
         # Finds all instances of the string between any character and .json
