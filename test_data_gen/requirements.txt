@@ -1,1 +1,12 @@
-# Required modules/dependancies
+# System configuration requirements
+    Windows:
+        Python executable must be in the global enviroment variables
+    Linux:
+        None
+
+# Python configuration requirements
+    Pip must be available as a package manager and accessible through the system executeble
+
+# Required modules/dependancies not in the standard library
+    pandas
+    regex

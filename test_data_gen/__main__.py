@@ -21,11 +21,12 @@ def main():
     print(__doc__)
     file_state = False  # Does the file exist?
     while file_state == False:  # TODO: exception handling
-        json_name = input("Specify the name of a JSON file you would like to read from.\nIf no such file exists, you will be prompted if you would like to create it:\n"
+        json_name = input(
+            "Specify the name of a JSON file you would like to read from.\nIf no such file exists, you will be prompted if you would like to create it:\n"
         )
         # Regex matching so including file extension is optional
         # Finds all instances of the string between any character and .json
-        if regex.findall(r'(.*)(?=.json)',json_name) == []:
+        if regex.findall(r'(.*)(?=.json)', json_name) == []:
             json_name = json_name + '.json'
         json_path = os.path.join(
             os.path.dirname(os.path.realpath(__file__)), "local_data", "json", json_name
@@ -43,6 +44,8 @@ def main():
         else:
             file_state = True
     core.pos_gen.generate(json_path)
+
+    return None
 
 
 if __name__ == "__main__":
