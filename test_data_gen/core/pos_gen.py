@@ -15,10 +15,6 @@ import math
 import pandas as pd
 
 
-def main():
-    pass
-
-
 def generate(json_path):
     with open(json_path, "r") as json_file:
         json_data = json.load(json_file)
@@ -90,6 +86,4 @@ def generate(json_path):
     )
     print('Position data saved to file: ' + csv_path)
 
-
-if __name__ == '__main__':
-    main()
+    return None

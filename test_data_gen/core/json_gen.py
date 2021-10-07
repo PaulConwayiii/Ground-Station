@@ -12,10 +12,6 @@ import json
 import math
 
 
-def main():
-    pass
-
-
 def generate(json_name, json_path):
     # TODO: input checking
     x_range = float(input("Specify a max X distance (m): "))
@@ -42,6 +38,4 @@ def generate(json_name, json_path):
     with open(json_path, "w") as outfile:
         json.dump(json_data, outfile)
 
-
-if __name__ == '__main__':
-    main()
+    return None
