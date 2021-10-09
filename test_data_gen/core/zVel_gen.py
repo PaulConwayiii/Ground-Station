@@ -14,7 +14,7 @@ import os
 
 def test_data():
     col_list = ["z_pos", "time"]
-    csv_name = 'test_data.csv'
+    csv_name = 'test_demo.csv'
     TestData = pd.read_csv(os.path.join(os.path.dirname(os.path.dirname(__file__)), "local_data", "generated", csv_name), usecols=col_list)
     time, z_pos = TestData["time"], TestData["z_pos"]
     pd.set_option('max_row', None)
@@ -36,45 +36,33 @@ test_data()
 Code Review
 Author: Paul Conway
 
-Line 10: You do not need matplotlib in this file.
-This file should not be doing any plotting.
-Plotting values will be handled in a different file.
+1. Line 24: n in range(value) will default start at 0 unless a different augument is passed
+You can remove the redundant 0
+ie: "n in range(value)" does the same as "n in range(0, value)"
 
-Line 19: File paths should be system independant.
-Your code there would not work on any other system without modifying the path.
-Paths should never be hard coded.
+2. Line 24: You are setting the max value too high
+size will report the number of items in a list
+ie:
+list = ['a', 'b', 'c']
+np.size(list) will evaluate to 3, but the maxinum index for the list is 2
+Change "range(np.size(time))" to "range(np.size(time) - 1)"
+This will remove the error at the end
+However, this will result in you having one less data point for velocity than position
+To fix this, you can just can just insert a point at the start equal to the first value you calculated
+ie: velocity = ['a','b','c']
+velocity would become: ['a','a','b','c']
 
-line 25: delta for time should not be hard coded.
-It should imported from the JSON file.
-Remember that CSV files are generated locally, so the JSON file correlating to that CSV will always be present
+3. Line 28: n automatically indexes
+n is overwritten each loop, so this line doesn't even change n once you iterate into a new loop
+You can remove this line completely
 
-line 25: Denominator has redudant terms
-(time + delta) - time always evaluates to delta
+4. This is only calculating z velocity. Should be calculating x and y velocity as well
+I assume you were waiting to add that until you could make sure z velocity was working properly 
 
-Line 25: You are adding the time delta to position.
-time has units of seconds, position has units of meters
-
-Line 25: Here is what the formula should be:
-Function notation (what you'll see in math class): V = (z(time + delta) - z(time))/ delta
-How that looks in code: V = (z[t[n + 1]] - z[t[n]]) / (t[n + 1] - t[n])
-where n is an index variable
-Since t[n+1] - t[n] is a constant, we can label it delta and rewrite:
-V = (z[t[n + 1]] - z[t[n]]) / delta
-This will all have to be in a for loop that loops for the number of rows present
+5. Results should be stored in the csv file with appropriate header names
 
 
-Changes made:
-1. Commented out line 10
-2. Added csv_name variable. For now this can be hard coded but this is at least system independant
-3. Modified line 19 to be system independant
-4. Added os import
+Style notes (functional code, but unconventional):
+1. Function names generally start with a lowercase letter and are verbs
 
-Currently this will
-
-Style notes (functional code, but unconventional)
-
-Line 26: Parenthesis for function calls should not be separated from the function
-"print('string')" is prefered over "print ('string')"
-
-Line 16 and line 24: Function names generally begin with a lowercase letter and are verbs
 """
