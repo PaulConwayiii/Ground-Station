@@ -5,7 +5,7 @@
         None
 
 # Python configuration requirements
-    Pip must be available as a package manager and accessible through the system executeble
+    Pip must be available as a package manager and accessible through the system executeble if using setup.py
 
 # Required modules/dependancies not in the standard library
     pandas

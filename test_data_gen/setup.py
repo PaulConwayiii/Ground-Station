@@ -1,3 +1,12 @@
+"""
+Installing nonstandard module dependancies
+Version: 1.0.0
+Author(s): Paul Conway
+
+Description: Installs modules not in the standard library.
+Pulls the list of non standrd libraries from non_std_modules.txt
+"""
+
 import subprocess
 import sys
 import importlib
@@ -31,8 +40,9 @@ def setup():
         req_lines = req_list.readlines()
         for module_name in req_lines:
             # Checks each module to see if it's installed
-            if check_module(module_name.rstrip('\n')) == False:
-                install(module_name)
+            if module_name != '\n':
+                if check_module(module_name.rstrip('\n')) == False:
+                    install(module_name)
     return None
 
 
