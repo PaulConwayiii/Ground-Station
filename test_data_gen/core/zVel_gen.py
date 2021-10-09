@@ -1,13 +1,12 @@
 """
 Z Velocity Generator
-Version: 1.0.0
+Version: 1.0.1
 Author(s): Jackson Sackrider
 
 Description: This file generates a collection of velocity values for the z-axis based off the parameters 
 contained in a JSON file.
 """
 
-# import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 from pandas import DataFrame
@@ -15,15 +14,20 @@ import os
 
 def test_data():
     col_list = ["z_pos", "time"]
-    csv_name = 'hello.csv'
+    csv_name = 'test_data.csv'
     TestData = pd.read_csv(os.path.join(os.path.dirname(os.path.dirname(__file__)), "local_data", "generated", csv_name), usecols=col_list)
     time, z_pos = TestData["time"], TestData["z_pos"]
     pd.set_option('max_row', None)
     Velocity(z_pos, time)
 
 def Velocity(z_pos, time):
-    z_velocity = ((z_pos + 0.01) - z_pos)/((time + 0.01) - time)
-    print (z_velocity)
+    for n in range(0, np.size(time)):
+        delta_t = time[n+1] - time[n]
+        z_velocity = (z_pos[n + 1] - z_pos[n]) / delta_t
+        print(z_velocity)
+        n += 1
+        
+    
     
 
 test_data()
