@@ -26,7 +26,7 @@ def main():
         )
         # Regex matching so including file extension is optional
         # Finds all instances of the string between any character and .json
-        if regex.findall(r'(.*)(?=.json)',json_name) == []:
+        if regex.findall(r'(.*)(?=.json)', json_name) == []:
             json_name = json_name + '.json'
         json_path = os.path.join(
             os.path.dirname(os.path.realpath(__file__)), "local_data", "json", json_name
@@ -44,6 +44,8 @@ def main():
         else:
             file_state = True
     core.pos_gen.generate(json_path)
+
+    return None
 
 
 if __name__ == "__main__":
