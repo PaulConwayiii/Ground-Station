@@ -22,13 +22,15 @@ def generate(json_path):
         b = json_data["y_weight"]
         c = 9.80665  # Standard gravitational acceleration
         h = json_data["altitude"]
-        p0 = 101325	# N/m^2 - Pressure at sea level
-        T0 = 288.15	# K - Temperature at sea level
+        p0 = 101325  # N/m^2 - Pressure at sea level
+        T0 = 288.15  # K - Temperature at sea level
         noise_level = json_data["noise_level"]
         json_name = json_data["json_name"]
         steps_per_second = json_data["steps_per_second"]
         message_num = 0
-    df = pd.DataFrame(columns=["message_num", "time", "x_pos", "y_pos", "z_pos","pressure"])
+    df = pd.DataFrame(
+        columns=["message_num", "time", "x_pos", "y_pos", "z_pos", "pressure"]
+    )
     # df.to_csv(os.path.join(os.path.dirname(json_path), os.path.pardir,'generated', json_name +'.csv'), index=False)
     root = math.sqrt(h / c)
     # range is defined such that the flight goes from 1 second before launch to 1 second after it contacts ground
@@ -41,7 +43,10 @@ def generate(json_path):
         x_pos = a * (time_stamp + root)
         y_pos = b * (time_stamp + root)
         z_pos = h - (c * (time_stamp ** 2))
-        pressure = p0*((1-0.0065*(z_pos/T0))**5.2561) # ISA pressure formula - http://fisicaatmo.at.fcen.uba.ar/practicas/ISAweb.pdf (P. 5, Eq. 7)
+        pressure = p0 * (
+            (1 - 0.0065 * (z_pos / T0)) ** 5.2561
+        )  # ISA pressure formula - http://fisicaatmo.at.fcen.uba.ar/practicas/ISAweb.pdf (P. 5, Eq. 7)
+        # TODO: Move the below z position correction
         message_num = message_num + 1
         if z_pos > 0:  # Needed in case z becomes negative
             x_last = x_pos
@@ -65,14 +70,7 @@ def generate(json_path):
             )  # Prints message for every second of flight generated
         df = df.append(
             pd.Series(
-                [
-                    message_num,
-                    (time_stamp + (root) + 1),
-                    x_pos,
-                    y_pos,
-                    z_pos,
-                    pressure
-                ],
+                [message_num, (time_stamp + (root) + 1), x_pos, y_pos, z_pos, pressure],
                 index=df.columns,
             ),
             ignore_index=True,
