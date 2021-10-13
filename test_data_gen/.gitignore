@@ -2,6 +2,6 @@
 **.wpr
 **/local_data/**/*.json
 **/local_data/**/*.csv
-**.log
-**/docs/**/.aux
-**/docs/**/.gz
+**.*log
+**/docs/**/*.aux
+**/docs/**/*.gz
