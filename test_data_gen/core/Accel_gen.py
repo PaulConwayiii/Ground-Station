@@ -12,12 +12,11 @@ import pandas as pd
 from pandas import DataFrame
 import os
 
-def Generate_Acceleration(): 
-    def import_data():
+def Generate_Acceleration(csv_name): 
+    def import_data(csv_name):
         #Define which files should be imported from the test data
         col_list = ["z_pos", "y_pos", "x_pos", "time", "x_velocity", "y_velocity", "z_velocity"]
         #Define the name of the test data csv and import it
-        csv_name = 'test_data.csv'
         TestData = pd.read_csv(os.path.join(os.path.dirname(os.path.dirname(__file__)), "local_data", "generated", csv_name), usecols=col_list)
         #Gather all the info from the columns
         time, z_vel, y_vel, x_vel = TestData["time"], TestData["z_velocity"], TestData["y_velocity"], TestData["x_velocity"]
@@ -60,5 +59,3 @@ def Generate_Acceleration():
         
     
     
-if __name__ == "__main__":
-    Generate_Acceleration()

@@ -12,12 +12,11 @@ import pandas as pd
 from pandas import DataFrame
 import os
 
-def Generate_Velocity(): 
-    def import_data():
+def Generate_Velocity(csv_name): 
+    def import_data(csv_name):
         #Define which files should be imported from the test data
         col_list = ["z_pos", "y_pos", "x_pos", "time"]
         #Define the name of the test data csv and import it
-        csv_name = 'test_data.csv'
         TestData = pd.read_csv(os.path.join(os.path.dirname(os.path.dirname(__file__)), "local_data", "generated", csv_name), usecols=col_list)
         #Gather all the info from the columns
         time, z_pos, y_pos, x_pos = TestData["time"], TestData["z_pos"], TestData["y_pos"], TestData["x_pos"]
@@ -53,9 +52,3 @@ def Generate_Velocity():
 
 
 
-
-        
-    
-    
-if __name__ == "__main__":
-    Generate_Velocity()
