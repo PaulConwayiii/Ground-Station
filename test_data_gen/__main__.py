@@ -47,7 +47,11 @@ def main():
         else:
             file_state = True
     csv_name = core.pos_gen.generate(json_path)
+    print("Position generated!")
     core.Vel_gen.Generate_Velocity(csv_name)
+    print("Velocity generated!")
+    core.Accel_gen.Generate_Acceleration(csv_name)
+    print("Acceleration generated!")
 
     return None
 
