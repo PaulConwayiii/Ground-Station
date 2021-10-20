@@ -54,3 +54,5 @@ def setup():
 
 if __name__ == '__main__':
     setup()
+# df1 = df1.assign(e=pd.Series(np.random.randn(sLength)).values)
+# df = df.assign('column_name'=column_data)
