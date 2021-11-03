@@ -24,6 +24,10 @@ def Generate_Angle(csv_name):
 
 
     def get_Angle(z_pos, time, y_pos, x_pos, z_velocity, y_velocity, x_velocity, TestData, csv_name):
+            #Initialize angle values
+            x_angle=0
+            y_angle=0
+            z_angle=0
             #Create a new data frame with the to be calculated columns
             df = pd.DataFrame(columns=["x_angle", "y_angle", "z_angle"])
             #Loop for every amount of times there is a change in time (run as long as there is data)
