@@ -88,4 +88,4 @@ def generate(json_path):
     )
     print('Position data saved to file: ' + csv_path)
 
-    return None
+    return json_name + '.csv'
