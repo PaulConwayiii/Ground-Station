@@ -48,7 +48,7 @@ def Generate_Velocity(csv_name):
             df.to_csv(os.path.join(os.path.dirname(os.path.dirname(__file__)), "local_data", "generated", csv_name), index = False)
 
     #Call the beginning fucntion
-    import_data()
+    import_data(csv_name)
 
 
 

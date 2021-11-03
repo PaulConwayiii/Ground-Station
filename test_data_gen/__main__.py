@@ -10,6 +10,7 @@ Description: This module creates test data for parabolic trajectories in accorda
 # Formatted with Black, the uncompromising Python code formatter.
 
 import core.json_gen
+import core.Angle_gen
 import core.Accel_gen
 import core.Vel_gen
 import core.randomize_data
@@ -52,6 +53,8 @@ def main():
     print("Velocity generated!")
     core.Accel_gen.Generate_Acceleration(csv_name)
     print("Acceleration generated!")
+    core.Angle_gen.Generate_Angle(csv_name)
+    print("Angular position generated!")
 
     return None
 
