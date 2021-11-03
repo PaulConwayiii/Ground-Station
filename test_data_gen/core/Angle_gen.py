@@ -18,7 +18,7 @@ def Generate_Angle(csv_name):
         #Define the name of the test data csv and import it
         TestData = pd.read_csv(os.path.join(os.path.dirname(os.path.dirname(__file__)), "local_data", "generated", csv_name), usecols=col_list)
         #Gather all the info from the columns
-        time, z_pos, y_pos, x_pos, z_velocity, y_velocity, x_velocity = TestData["time"], TestData["z_pos"], TestData["y_pos"], TestData["x_pos"], TestData[z_velocity], TestData[y_velocity], TestData[x_velocity]
+        time, z_pos, y_pos, x_pos, z_velocity, y_velocity, x_velocity = TestData["time"], TestData["z_pos"], TestData["y_pos"], TestData["x_pos"], TestData["z_velocity"], TestData["y_velocity"], TestData["x_velocity"]
         #Call the function get_Angle
         get_Angle(z_pos, time, y_pos, x_pos, z_velocity, y_velocity, x_velocity, TestData, csv_name)
 
