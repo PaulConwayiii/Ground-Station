@@ -15,10 +15,10 @@ import os
 def Generate_Velocity(csv_name): 
     def import_data(csv_name):
         #Define which files should be imported from the test data
-        col_list = ["z_pos", "y_pos", "x_pos", "time"]
+        col_list = ["z_pos", "y_pos", "x_pos",'pressure', "time"]
         #Define the name of the test data csv and import it
         TestData = pd.read_csv(os.path.join(os.path.dirname(os.path.dirname(__file__)), "local_data", "generated", csv_name), usecols=col_list)
-        #Gather all the info from the columns
+        #Gfather all the info from the columns
         time, z_pos, y_pos, x_pos = TestData["time"], TestData["z_pos"], TestData["y_pos"], TestData["x_pos"]
         #Call the function get_Velocity 
         get_Velocity(z_pos, time, y_pos, x_pos, TestData, csv_name)
@@ -42,6 +42,7 @@ def Generate_Velocity(csv_name):
             df['y_pos'] = list(TestData['y_pos'][1:])
             df['z_pos'] = list(TestData['z_pos'][1:])
             df['time'] = list(TestData['time'][1:])
+            df['pressure'] = list(TestData['pressure'][1:])
             #Rearrange all the columns to the desired pattern
             df = df.reindex(['time','x_pos','y_pos','z_pos','pressure','x_velocity','y_velocity','z_velocity'], axis='columns')
             #Export the new data frame arrays into the old csv, replacing the old with the new

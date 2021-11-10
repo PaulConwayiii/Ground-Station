@@ -15,7 +15,7 @@ import os
 def Generate_Acceleration(csv_name): 
     def import_data(csv_name):
         #Define which files should be imported from the test data
-        col_list = ["z_pos", "y_pos", "x_pos", "time", "x_velocity", "y_velocity", "z_velocity"]
+        col_list = ["z_pos", "y_pos", "x_pos", 'pressure',"time", "x_velocity", "y_velocity", "z_velocity"]
         #Define the name of the test data csv and import it
         TestData = pd.read_csv(os.path.join(os.path.dirname(os.path.dirname(__file__)), "local_data", "generated", csv_name), usecols=col_list)
         #Gather all the info from the columns
@@ -45,6 +45,7 @@ def Generate_Acceleration(csv_name):
             df['x_velocity'] = list(TestData['x_velocity'][1:])
             df['y_velocity'] = list(TestData['y_velocity'][1:])
             df['z_velocity'] = list(TestData['z_velocity'][1:])
+            df['pressure'] = list(TestData['pressure'][1:])
             #Rearrange all the columns to the desired pattern
             df = df.reindex(['time','x_pos','y_pos','z_pos','pressure','x_velocity','y_velocity','z_velocity', 'x_acceleration', 'y_acceleration', 'z_acceleration'], axis='columns')
             #Export the new data frame arrays into the old csv, replacing the old with the new
