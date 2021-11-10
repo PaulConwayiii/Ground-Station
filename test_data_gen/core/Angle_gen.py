@@ -25,9 +25,9 @@ def Generate_Angle(csv_name):
 
     def get_Angle(z_pos, time, y_pos, x_pos, z_velocity, y_velocity, x_velocity, TestData, csv_name):
             #Initialize angle values
-            x_angle=0
-            y_angle=0
-            z_angle=0
+            x_angle=[0]
+            y_angle=[0]
+            z_angle=[0]
             #Create a new data frame with the to be calculated columns
             df = pd.DataFrame(columns=["x_angle", "y_angle", "z_angle"])
             #Loop for every amount of times there is a change in time (run as long as there is data)
@@ -35,9 +35,9 @@ def Generate_Angle(csv_name):
                 #Find the difference in time (the delta of time)
                 delta_t = time[n+1] - time[n]
                 #Calculate the three angles
-                x_angle=x_angle+((((y_pos[n]*z_velocity[n])-(z_pos[n]*y_velocity[n]))/((x_pos[n]**2)+(y_pos[n]**2)+(z_pos[n]**2)))*delta_t)
-                y_angle=y_angle+((((z_pos[n]*x_velocity[n])-(x_pos[n]*z_velocity[n]))/((x_pos[n]**2)+(y_pos[n]**2)+(z_pos[n]**2)))*delta_t)
-                z_angle=z_angle+((((x_pos[n]*y_velocity[n])-(y_pos[n]*x_velocity[n]))/((x_pos[n]**2)+(y_pos[n]**2)+(z_pos[n]**2)))*delta_t)
+                x_angle.append(((((y_pos[n]*z_velocity[n])-(z_pos[n]*y_velocity[n]))/((x_pos[n]**2)+(y_pos[n]**2)+(z_pos[n]**2)))*delta_t))
+                y_angle.append(((((z_pos[n]*x_velocity[n])-(x_pos[n]*z_velocity[n]))/((x_pos[n]**2)+(y_pos[n]**2)+(z_pos[n]**2)))*delta_t))
+                z_angle.append(((((x_pos[n]*y_velocity[n])-(y_pos[n]*x_velocity[n]))/((x_pos[n]**2)+(y_pos[n]**2)+(z_pos[n]**2)))*delta_t))
                 #Add the calculated values to the columns to create an array
                 df = df.append(pd.Series([x_angle, y_angle, z_angle], index=df.columns), ignore_index = True)
             #Add the old imported columns to the new data frame
