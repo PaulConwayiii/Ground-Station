@@ -43,7 +43,7 @@ def Generate_Velocity(csv_name):
             df['z_pos'] = list(TestData['z_pos'][1:])
             df['time'] = list(TestData['time'][1:])
             #Rearrange all the columns to the desired pattern
-            df = df.reindex(['time','x_pos','y_pos','z_pos','x_velocity','y_velocity','z_velocity'], axis='columns')
+            df = df.reindex(['time','x_pos','y_pos','z_pos','pressure','x_velocity','y_velocity','z_velocity'], axis='columns')
             #Export the new data frame arrays into the old csv, replacing the old with the new
             df.to_csv(os.path.join(os.path.dirname(os.path.dirname(__file__)), "local_data", "generated", csv_name), index = False)
 
