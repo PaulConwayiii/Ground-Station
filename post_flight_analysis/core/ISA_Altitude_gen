@@ -8,6 +8,7 @@ and plots ISA altitude based on a pressure --> ISA Altitude conversion.
 """
 
 import numpy as np
+from matplotlib import pyplot as plt 
 import pandas as pd
 from pandas import DataFrame
 import os
@@ -27,3 +28,10 @@ with open(csv_path, mode='r') as csv_file:
     print(str(time))
     print(str(pressure))
 
+altitude = []
+
+for x in pressure:
+    altitude(x) = pressure(x)
+
+plt.plot(time,altitude)
+plt.show()
