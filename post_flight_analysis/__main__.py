@@ -6,36 +6,39 @@ TODO: Docstring
 
 # Imports
 import core.data_in
+import core.ang_vel
+import core.ISA_altitude
+import core.rotation
 
 
 def main():
     # Imports data. This will return a stuct containing the data in SI units and any metadata
-    base_data = data_in.extract()
-    # Extract flight data from struct
-    # Extract metadata from struct
+    base_data = data_in.extract(mode="test")
+    # TODO: Extract flight data from struct
+    # TODO: Extract metadata from struct
 
-    # Separate acceleration data
-    # Separate angular velocity data
-    # Separate Compass data
-    # Separate Pressure data
+    # TODO: Separate acceleration data
+    # TODO: Stitch low-G and high-G data together
+    # TODO: Separate angular velocity data
+    # TODO: Separate Compass data
+    # TODO: Separate Pressure data
 
-    # Callibarte pressure
-    # Callibrate angular position
+    # TODO: Callibarte pressure
+    # TODO: Callibrate angular position
 
-    # Rotate all vectors to GSI frame
+    # TODO: Rotate all vectors to GSI frame
 
-    # Get velocity
+    # TODO: Get velocity
 
-    # Get position
+    # TODO: Get position
 
-    # Calculate Net forces
+    # TODO: Calculate Net forces
 
-    # Calculate aero forces
+    # TODO: Calculate aero forces
 
-    # Calculate impulse
+    # TODO: Calculate impulse
 
-    # Calculate ISA and accel calculated altitude divergence
-
+    # TODO: Calculate ISA and accel calculated altitude divergence
 
     return None
 
