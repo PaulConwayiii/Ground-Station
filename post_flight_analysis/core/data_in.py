@@ -38,19 +38,21 @@ def extract(mode="live"):
             rows = 3000
             data = np.zeros((rows, 14))
             t = np.linspace(0, 3, rows)
-            for n in t:
+            for n in range(len(t)):
                 # time
                 data[n, 0] = n
                 # accel low
-                data[n, 1:3] = (8*np.random((1, 3)))
+                data[n, 1:3] = 8
                 # accel high
-                data[n, 4:6] = (8 + 15*np.random((1,3)))
+                data[n, 4:6] = 15
                 # angular accel
-                data[n, 7:9] = (1000*np.random((1,3)))
+                data[n, 7:9] = 1000
                 # compass
-                data[n, 10:12] = (np.random((1,3)))
+                data[n, 10:12] = 111
                 # pressure
-                data[n,13] = (100000 + 1000*np.random((1)))
+                data[n,13] = 1000000
+
+            return data
         case _:
             # TODO: Raise exception
             pass

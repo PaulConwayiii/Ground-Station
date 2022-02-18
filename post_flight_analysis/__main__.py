@@ -7,14 +7,15 @@ TODO: Docstring
 # Imports
 import core.data_in
 # import core.ang_vel
-# import core.ISA_altitude
-import core.rotation
-import core.stitches
+import core.ISA_altitude_gen
+# import core.rotation
+# import core.stitches
 
 
 def main():
     # Imports data. This will return a stuct containing the data in SI units and any metadata
     base_data = core.data_in.extract(mode="test")
+    time = base_data[:,0]
     # TODO: Extract flight data from struct
     # TODO: Extract metadata from struct
 
@@ -22,7 +23,13 @@ def main():
     # TODO: Stitch low-G and high-G data together
     # TODO: Separate angular velocity data
     # TODO: Separate Compass data
-    # TODO: Separate Pressure data
+    pressure = base_data[:,13]
+    print(str(pressure))
+
+    yee = core.ISA_Altitude_gen.ISA_altitude(pressure)
+
+
+    print(str(yee[1]))
 
     # TODO: Callibarte pressure
     # TODO: Callibrate angular position
