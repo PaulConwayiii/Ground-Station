@@ -6,14 +6,15 @@ TODO: Docstring
 
 # Imports
 import core.data_in
-import core.ang_vel
-import core.ISA_altitude
+# import core.ang_vel
+# import core.ISA_altitude
 import core.rotation
+import core.stitches
 
 
 def main():
     # Imports data. This will return a stuct containing the data in SI units and any metadata
-    base_data = data_in.extract(mode="test")
+    base_data = core.data_in.extract(mode="test")
     # TODO: Extract flight data from struct
     # TODO: Extract metadata from struct
 
@@ -32,7 +33,7 @@ def main():
 
     # TODO: Get position
 
-    # TODO: Calculate Net forces
+    # TODO: Calculate Net force
 
     # TODO: Calculate aero forces
 

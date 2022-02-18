@@ -32,12 +32,25 @@ def extract(mode="live"):
             # This is only for testing purposes. Will export pre-made data
 
             # This is just placeholder data. Better data should be made
+            # t|axl|ayl|azl|axh|ayh|azh|wx|wy|wz|Ex|Ey|Ez|P
+            # 0| 1 | 2 | 3 | 4 | 5 | 6 | 7| 8| 9|10|11|12|13
+            # low-g threshold = 8 m/s
             rows = 3000
-            data = np.zeros((rows, 11))
+            data = np.zeros((rows, 14))
             t = np.linspace(0, 3, rows)
             for n in t:
+                # time
                 data[n, 0] = n
-                data[n, 1:11] = np.random((1, 10))
+                # accel low
+                data[n, 1:3] = (8*np.random((1, 3)))
+                # accel high
+                data[n, 4:6] = (8 + 15*np.random((1,3)))
+                # angular accel
+                data[n, 7:9] = (1000*np.random((1,3)))
+                # compass
+                data[n, 10:12] = (np.random((1,3)))
+                # pressure
+                data[n,13] = (100000 + 1000*np.random((1)))
         case _:
             # TODO: Raise exception
             pass
