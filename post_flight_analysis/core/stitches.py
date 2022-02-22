@@ -2,16 +2,17 @@
 TODO: Docstring
 """
 
-def stitch(time,low,high,threshold,dim=3):
+
+def stitch(time, low, high, threshold):
     """
     Inputs:
         time .................. numpy array [x]
-        low ................... numpy array [y_1,y_2,...,y_n]
-        high .................. numpy array [y_1,y_2,...,y_n]
+        low ................... numpy array [[y_1],[y_2],[y_3]]
+        high .................. numpy array [[y_1],[y_2],[y_3]]
         threshold ............. float value where low values will be replaced
         dim (opt, defalt=3) ... number of dependant variables (y-values)
     Returns:
-        numpy array [x,y_1,y_2,...,y_n]
+        numpy array [[y_1],[y_2],[y_3]]
     Raises:
         None
     """

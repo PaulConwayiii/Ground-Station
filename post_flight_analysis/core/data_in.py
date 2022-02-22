@@ -42,15 +42,15 @@ def extract(mode="live"):
                 # time
                 data[n, 0] = n
                 # accel low
-                data[n, 1:3] = 8
+                data[n, 1:4] = 8 + n
                 # accel high
-                data[n, 4:6] = 15
+                data[n, 4:7] = 15
                 # angular accel
-                data[n, 7:9] = 1000
+                data[n, 7:10] = 1000
                 # compass
-                data[n, 10:12] = 111
+                data[n, 10:13] = 111
                 # pressure
-                data[n,13] = 1000000
+                data[n, 13] = 1000000
 
             return data
         case _:

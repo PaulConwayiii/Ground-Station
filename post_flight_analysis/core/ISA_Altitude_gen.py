@@ -7,7 +7,6 @@ Description: This file imports generated barometric pressure data from a .csv fi
 and plots ISA altitude based on a pressure --> ISA Altitude conversion.
 """
 
-from turtle import end_fill
 import numpy as np
 from matplotlib import pyplot as plt 
 import pandas as pd
@@ -15,7 +14,7 @@ from pandas import DataFrame
 import os
 import csv
 
-def ISA_altitude():
+def ISA_altitude(pressure):
     #define csv path to pull csv from
     csv_path = input('Please input the csv file path you would like to read:') 
     

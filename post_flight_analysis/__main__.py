@@ -5,31 +5,34 @@ TODO: Docstring
 # Formatted with Black, the uncompromising Python code formatter.
 
 # Imports
+import numpy as np
 import core.data_in
+
 # import core.ang_vel
-import core.ISA_altitude_gen
+import core.ISA_Altitude_gen
+
 # import core.rotation
-# import core.stitches
+import core.stitches
 
 
 def main():
     # Imports data. This will return a stuct containing the data in SI units and any metadata
     base_data = core.data_in.extract(mode="test")
-    time = base_data[:,0]
-    # TODO: Extract flight data from struct
-    # TODO: Extract metadata from struct
+    print(str(base_data))
+    threshold = 8  # TODO: remove when metadata extraction is implemented
 
-    # TODO: Separate acceleration data
-    # TODO: Stitch low-G and high-G data together
-    # TODO: Separate angular velocity data
-    # TODO: Separate Compass data
-    pressure = base_data[:,13]
-    print(str(pressure))
+    time = base_data[:, 0]
 
-    yee = core.ISA_Altitude_gen.ISA_altitude(pressure)
+    accel_low = np.vstack((base_data[:, 1], base_data[:, 2], base_data[:, 3]))
+    accel_high = np.vstack((base_data[:, 4], base_data[:, 5], base_data[:, 6]))
+    accel = core.stitches.stitch(time, accel_low, accel_high, threshold)
 
+    omega = np.vstack((base_data[:, 7], base_data[:, 8], base_data[:, 9]))
+    compass = np.vstack((base_data[:, 10], base_data[:, 11], base_data[:, 12]))
 
-    print(str(yee[1]))
+    pressure = base_data[:, 13]
+
+    pressure_alt = core.ISA_Altitude_gen.ISA_altitude(pressure)
 
     # TODO: Callibarte pressure
     # TODO: Callibrate angular position
