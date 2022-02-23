@@ -11,19 +11,25 @@ import core.integrate
 # import core.ang_vel
 import core.ISA_Altitude_gen
 # import core.rotation
-import core.stitches
+# import core.stitches
 
 
 def main():
     # Imports data. This will return a stuct containing the data in SI units and any metadata
-    base_data = core.data_in.extract(mode="test")
-    threshold = 8  # TODO: remove when metadata extraction is implemented
+    base_data, mdata = core.data_in.extract(mode="test")
+    threshold = mdata["accel_range"]
+    m_i = mdata["m_i"]
+    m_f = mdata["m_f"]  
+    C_D = mdata["C_D"] 
+    A_f = mdata["A_f"]
+    # TODO: Add rest of metadata
+
 
     time = base_data[:, 0]
 
     accel_low = np.vstack((base_data[:, 1], base_data[:, 2], base_data[:, 3]))
     accel_high = np.vstack((base_data[:, 4], base_data[:, 5], base_data[:, 6]))
-    accel = core.stitches.stitch(time, accel_low, accel_high, threshold)
+    # accel = core.stitches.stitch(time, accel_low, accel_high, threshold)
 
     omega = np.vstack((base_data[:, 7], base_data[:, 8], base_data[:, 9]))
     compass = np.vstack((base_data[:, 10], base_data[:, 11], base_data[:, 12]))
@@ -37,10 +43,18 @@ def main():
 
     # TODO: Rotate all vectors to GSI frame
 
-    vel = core.integrate.left_sum(time, accel_low[0])
-    print(str(vel))
+    vel_x = core.integrate.left_sum(time, accel_low[0])
+    vel_y = core.integrate.left_sum(time, accel_low[1])
+    vel_z = core.integrate.left_sum(time, accel_low[2])
+    vel = np.asarray([vel_x, vel_y, vel_z])
 
-    # TODO: Get position
+    pos_x = core.integrate.left_sum(time, vel[0])
+    pos_y = core.integrate.left_sum(time, vel[1])
+    pos_z = core.integrate.left_sum(time, vel[2])
+    pos = np.asarray([pos_x, pos_y, pos_z])
+
+    print(str(pos))
+
 
     # TODO: Calculate Net force
 
