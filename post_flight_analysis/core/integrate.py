@@ -7,7 +7,7 @@ TODO: Finish this dosstring
 """
 import numpy as np
 
-def left_sum(num_input):
+def left_sum(x,y):
     """
     Inputs:
         x, list-like type
@@ -17,12 +17,10 @@ def left_sum(num_input):
     Raises:
         IndexError if x and y have different sizes
     """
-    x = num_input[:,0]
-    y = num_input[:,1]
 
-    col_width = len(num_input)
-    row_width = len(num_input[0])
-    num_output = np.zeros([col_width,row_width])
+    col_width = len(x)
+    row_width = len(y)
+    num_output = np.zeros([row_width,1])
     # TODO: dont require list type
     #if type(x) != 'list':
     #    x = list(x)
@@ -31,15 +29,12 @@ def left_sum(num_input):
 
     if len(x) == len(y):
         num_sum = 0
-        for n in range(1, row_width - 1):
+        for n in range(row_width - 1):
             # Will handle changes in data timing
-            delta = num_input[0,[n+1]] - num_input[0,[n]]
-            
-            num_sum = num_sum + (delta * num_input[1,[n]])
-            print(str(num_sum))
-            print(str(delta * num_input[0,[n]]))
-            num_output[0,[n]] = n
-            num_output[1,[n]]= num_sum
+            delta = x[n+1] - x[n]
+            num_sum = num_sum + (delta * y[n])
+            num_output[n]= num_sum
+        num_output[col_width - 1] = num_output[col_width - 2]
         return num_output
     else:
         raise IndexError("Array sizes must match")
