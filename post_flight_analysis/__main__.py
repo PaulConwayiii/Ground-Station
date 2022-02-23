@@ -16,12 +16,13 @@ import core.ISA_Altitude_gen
 
 def main():
     # Imports data. This will return a stuct containing the data in SI units and any metadata
-    base_data = core.data_in.extract(mode="test")
-    threshold = 8  # TODO: remove when metadata extraction is implemented
-    m_i = 100 # TODO: remove when metatdata extraction is implemented
-    m_f = 10 # TODO: remove when metadata extraction is implemented
-    c_d = 1.1 # TODO: remove when metadata extraction is implemented
-    A_f = 0.02 # TODO: remove when metatdata extraction is implemented
+    base_data, mdata = core.data_in.extract(mode="test")
+    threshold = mdata["accel_range"]
+    m_i = mdata["m_i"]
+    m_f = mdata["m_f"]  
+    C_D = mdata["C_D"] 
+    A_f = mdata["A_f"]
+    # TODO: Add rest of metadata
 
 
     time = base_data[:, 0]
