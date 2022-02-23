@@ -42,7 +42,9 @@ def extract(mode="live"):
                 # time
                 data[n, 0] = n
                 # accel low
-                data[n, 1:4] = 8 + n
+                data[n, 1] = 8 + n
+                data[n, 2] = 7 + n
+                data[n, 3] = 2 * n
                 # accel high
                 data[n, 4:7] = 15
                 # angular accel
