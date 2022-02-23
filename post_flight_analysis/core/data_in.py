@@ -54,7 +54,23 @@ def extract(mode="live"):
                 # pressure
                 data[n, 13] = 1000000
 
-            return data
+            # Metadata
+            mdata = {
+                "gyro_range" : 2000,
+                "gyro_res" : 2000/(2**16),
+                "accel_range" : 8,
+                "accel_res" : 8/(2**16),
+                "mag_range" : 2000,
+                "mag_res" : 2000/(2**16),
+                "C_D" : 1.1,
+                "A_f" : 0.008,
+                "m_i" : 10,
+                "m_f" : 5,
+                "burn_time" : 8,
+                "P_0" : 101325,
+                "T_0" : 277
+            }
+            return (data, mdata)
         case _:
             # TODO: Raise exception
             pass
