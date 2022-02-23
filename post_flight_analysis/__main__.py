@@ -7,10 +7,9 @@ TODO: Docstring
 # Imports
 import numpy as np
 import core.data_in
-
+import core.integrate
 # import core.ang_vel
 import core.ISA_Altitude_gen
-
 # import core.rotation
 import core.stitches
 
@@ -18,7 +17,6 @@ import core.stitches
 def main():
     # Imports data. This will return a stuct containing the data in SI units and any metadata
     base_data = core.data_in.extract(mode="test")
-    print(str(base_data))
     threshold = 8  # TODO: remove when metadata extraction is implemented
 
     time = base_data[:, 0]
@@ -32,14 +30,15 @@ def main():
 
     pressure = base_data[:, 13]
 
-    pressure_alt = core.ISA_Altitude_gen.ISA_altitude(pressure)
+    # pressure_alt = core.ISA_Altitude_gen.ISA_altitude(pressure)
 
     # TODO: Callibarte pressure
     # TODO: Callibrate angular position
 
     # TODO: Rotate all vectors to GSI frame
 
-    # TODO: Get velocity
+    vel = core.integrate.left_sum(time, accel_low[0])
+    print(str(vel))
 
     # TODO: Get position
 
