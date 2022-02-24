@@ -22,6 +22,7 @@ def main():
     m_f = mdata["m_f"]  
     C_D = mdata["C_D"] 
     A_f = mdata["A_f"]
+    burn_time = mdata["burn_time"]
     # TODO: Add rest of metadata
 
 
