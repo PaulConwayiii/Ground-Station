@@ -10,8 +10,8 @@ import core.data_in
 import core.integrate
 # import core.ang_vel
 import core.ISA_Altitude_gen
-# import core.rotation
-# import core.stitches
+import core.rotation
+import core.stitches
 
 
 def main():
@@ -30,7 +30,7 @@ def main():
 
     accel_low = np.vstack((base_data[:, 1], base_data[:, 2], base_data[:, 3]))
     accel_high = np.vstack((base_data[:, 4], base_data[:, 5], base_data[:, 6]))
-    # accel = core.stitches.stitch(time, accel_low, accel_high, threshold)
+    accel = core.stitches.stitch(time, accel_low, accel_high, threshold)
 
     omega = np.vstack((base_data[:, 7], base_data[:, 8], base_data[:, 9]))
     compass = np.vstack((base_data[:, 10], base_data[:, 11], base_data[:, 12]))
@@ -42,7 +42,8 @@ def main():
     # TODO: Callibarte pressure
     # TODO: Callibrate angular position
 
-    # TODO: Rotate all vectors to GSI frame
+    # Rotating vectors
+    accel = core.rotation.rotate(omega,time,accel)
 
     vel_x = core.integrate.left_sum(time, accel_low[0])
     vel_y = core.integrate.left_sum(time, accel_low[1])
@@ -53,8 +54,6 @@ def main():
     pos_y = core.integrate.left_sum(time, vel[1])
     pos_z = core.integrate.left_sum(time, vel[2])
     pos = np.asarray([pos_x, pos_y, pos_z])
-
-    print(str(pos))
 
 
     # TODO: Calculate Net force
