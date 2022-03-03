@@ -12,6 +12,7 @@ import core.integrate
 import core.ISA_Altitude_gen
 import core.rotation
 import core.stitches
+import core.force_calc
 
 
 def main():
@@ -37,7 +38,7 @@ def main():
 
     pressure = base_data[:, 13]
 
-    # pressure_alt = core.ISA_Altitude_gen.ISA_altitude(pressure)
+    pressure_alt = core.ISA_Altitude_gen.ISA_altitude(pressure)
 
     # TODO: Callibarte pressure
     # TODO: Callibrate angular position
@@ -56,7 +57,7 @@ def main():
     pos = np.asarray([pos_x, pos_y, pos_z])
 
 
-    # TODO: Calculate Net force
+    force = core.force_calc.calculate_force(time, accel, m_i, m_f, burn_time)
 
     # TODO: Calculate aero forces
 
