@@ -5,6 +5,8 @@ TODO: Docstring
 # Formatted with Black, the uncompromising Python code formatter.
 
 # Imports
+import matplotlib.pyplot as plt
+
 import numpy as np
 import core.data_in
 import core.integrate
@@ -32,6 +34,7 @@ def main():
     accel_low = np.vstack((base_data[:, 1], base_data[:, 2], base_data[:, 3]))
     accel_high = np.vstack((base_data[:, 4], base_data[:, 5], base_data[:, 6]))
     accel = core.stitches.stitch(time, accel_low, accel_high, threshold)
+    accel_mag = [np.sqrt(accel[0][i]**2 + accel[1][i]**2 + accel[2][i]**2) for i,_ in enumerate(time)]
 
     omega = np.vstack((base_data[:, 7], base_data[:, 8], base_data[:, 9]))
     compass = np.vstack((base_data[:, 10], base_data[:, 11], base_data[:, 12]))
@@ -65,6 +68,19 @@ def main():
 
     # TODO: Calculate ISA and accel calculated altitude divergence
 
+    # Plottting happens here:
+    plt.subplot(3,3,1)
+    plt.plot(time,accel[0])
+    plt.plot(time,accel[1])
+    plt.plot(time,accel[2])
+    plt.plot(time,accel_mag)
+    plt.legend(["x","y","z","net"])
+    plt.title("Acceleration, m/s")
+
+    plt.subplot(3,3,2)
+
+
+    plt.show()
     return None
 
 

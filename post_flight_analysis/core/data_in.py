@@ -1,12 +1,15 @@
-"""
-TODO: Docstring
-"""
-
-# Imports
 import numpy as np
 
 
 def extract(mode="live"):
+    """
+    Parameters:
+        pl
+    Outputs:
+        pl
+    Raises:
+        None
+    """
     match mode:
         case "live":
             # Get unprocessed data
@@ -35,7 +38,7 @@ def extract(mode="live"):
             # t|axl|ayl|azl|axh|ayh|azh|wx|wy|wz|Ex|Ey|Ez|P
             # 0| 1 | 2 | 3 | 4 | 5 | 6 | 7| 8| 9|10|11|12|13
             # low-g threshold = 8 m/s
-            rows = 3000
+            rows = 15
             data = np.zeros((rows, 14))
             t = np.linspace(0, 3, rows)
             for n in range(len(t)):
@@ -44,9 +47,9 @@ def extract(mode="live"):
                 # accel low
                 data[n, 1] = 8 + n
                 data[n, 2] = 7 + n
-                data[n, 3] = 2 * n
+                data[n, 3] = np.exp(n)
                 # accel high
-                data[n, 4:7] = 15
+                data[n, 4:7] = 15+(n*0.1)
                 # angular accel
                 data[n, 7:10] = 1000
                 # compass
@@ -76,4 +79,4 @@ def extract(mode="live"):
             pass
 
     # Return struct containing flight data and metadata
-    return data
+    return (data, mdata)
