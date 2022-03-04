@@ -1,42 +1,36 @@
-# TODO: Clean imports
 import numpy as np
-# import exceptions
 
 
 def rotate(omega, step, R_frame, nose_axis="z"):
     """
     Expresses R_frame in terms of an inertial frame based on an angular velocity vector.
-     parameters:
-       omega:
-           Type: 3 element nested list. Each list contains omega around an axis
-           Units: rad/sec
-           Expresses angular velocity vector of R_frame relative to an inertial frame
-           TODO: Make thus use an numpy array
-       step:
-           Type: list
-           Units: sec
-           duration of rotation expressed by omega
-       R_frame:
-           Type: 3 element nested list. Each list contains vectors along a certain axis
-           TODO: Make this use an numpy array
-       nose_axis (optional):
-           Type: string
-           Values: 'x', 'y', 'z'
-           Expressed which axis is pointing towards the nose (NOT IMPLEMENTED).
-           The remaining two axis will be oriented such that the frame is right-handed
-
-     Outputs:
-       3 element list
-       contains the unit vectors of R_frame after rotation in terms of the inertial frame
-       TODO: Make this use an numpy array
-
+    Parameters:
+        omega:
+            Type: 3 element list
+            Description: Each element contains a numpy array expressing angular velocity around a body fixed axis
+            Units: rad/sec
+        step:
+            Type: list
+            Description: Time at each point
+            Units: sec
+            TODO: Make this use an numpy array
+        R_frame:
+            Type: 3 element list
+            Description: 0,1,2 elements contain the x,y,z components of a time varing vector in a body fixed frame
+        nose_axis (optional):
+            Type: string
+            Values: 'x', 'y', 'z'
+            Expressed which axis is pointing towards the nose.
+            The remaining two axis will be oriented such that the frame is right-handed
+    Outputs:
+        Type: 3 element list
+        Description: 0,1,2 elements contains the x,y,z components of the time varying vector in an inertial frame
     Raises:
-        TODO: fill this out
+        NotImplementedError:
+            Cause: nose_axis was set to something other than "z"
     """
 
     # TODO: error checking inputs
-    # TODO: omega is a 3 element vector?
-    # TODO: R_frame is a 9 element array with columns having a magnitude of 1?
 
     # TODO: implement nose axis selection. The program is written such that the nose points towards z
     # For other axes, change the vectors so that z points towards the nose, perform the calculations,
@@ -58,11 +52,10 @@ def rotate(omega, step, R_frame, nose_axis="z"):
     RR_z = np.zeros((len(step),))
 
     # These are not really Euler angles (unless it's a special case where they happen to be)
-    for n,s in enumerate(step):
+    for n, s in enumerate(step):
         alpha = omega[0][n] * s
         beta = omega[1][n] * s
         gamma = omega[2][n] * s
-
 
         # It's faster to do this once rather than compute these trig functions 12 times
         c_alpha = np.cos(alpha)
@@ -80,19 +73,12 @@ def rotate(omega, step, R_frame, nose_axis="z"):
         # This matrix combines all rotations
         Q = np.matmul(np.matmul(Q_1, Q_2), Q_3)
 
-        """
-        # Rotated vectors
-        i_rotated = np.matmul(Q, R_frame[0])
-        j_rotated = np.matmul(Q, R_frame[1])
-        k_rotated = np.matmul(Q, R_frame[2])
-        """
-
         # Rotated vector
-        raw_vec = [R_frame[0][n],R_frame[1][n],R_frame[2][n]]
-        rot_vec = np.matmul(Q,raw_vec)
+        raw_vec = [R_frame[0][n], R_frame[1][n], R_frame[2][n]]
+        rot_vec = np.matmul(Q, raw_vec)
 
         RR_x[n] = rot_vec[0]
         RR_y[n] = rot_vec[1]
         RR_z[n] = rot_vec[2]
 
-    return [RR_x,RR_y,RR_z]
+    return [RR_x, RR_y, RR_z]
