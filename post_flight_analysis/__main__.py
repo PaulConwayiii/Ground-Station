@@ -53,14 +53,17 @@ def main():
     vel_y = core.integrate.left_sum(time, accel_low[1])
     vel_z = core.integrate.left_sum(time, accel_low[2])
     vel = np.asarray([vel_x, vel_y, vel_z])
+    vel_mag = [np.sqrt(vel[0][i]**2 + vel[1][i]**2 + vel[2][i]**2) for i,_ in enumerate(time)]
 
     pos_x = core.integrate.left_sum(time, vel[0])
     pos_y = core.integrate.left_sum(time, vel[1])
     pos_z = core.integrate.left_sum(time, vel[2])
     pos = np.asarray([pos_x, pos_y, pos_z])
+    pos_mag = [np.sqrt(pos[0][i]**2 + pos[1][i]**2 + pos[2][i]**2) for i,_ in enumerate(time)]
 
 
     force = core.force_calc.calculate_force(time, accel, m_i, m_f, burn_time)
+    force_mag = [np.sqrt(force[0][i]**2 + force[1][i]**2 + force[2][i]**2) for i,_ in enumerate(time)]
 
     # TODO: Calculate aero forces
 
