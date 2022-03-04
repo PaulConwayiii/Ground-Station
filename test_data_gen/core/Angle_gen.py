@@ -12,6 +12,14 @@ from pandas import DataFrame
 import os
 
 def Generate_Angle(csv_name): 
+    """
+    Inputs:
+        csv_name ........ Name of the CSV file
+    Returns:
+        None
+    Raises:
+        None
+    """
     def import_data(csv_name):
         #Define which files should be imported from the test data
         col_list = ["z_pos", "y_pos", "x_pos",'pressure', "z_velocity", "y_velocity", "x_velocity", "z_acceleration", "y_acceleration", "x_acceleration", "time"]
