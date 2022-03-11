@@ -48,7 +48,7 @@ def Generate_Angle(csv_name):
                     #x_angle = ((((y_pos[n]*z_velocity[n])-(z_pos[n]*y_velocity[n]))/((x_pos[n]**2)+(y_pos[n]**2)+(z_pos[n]**2)))*delta_t)
                     y_angle = ((((z_pos[n]*x_velocity[n])-(x_pos[n]*z_velocity[n]))/((x_pos[n]**2)+(y_pos[n]**2)+(z_pos[n]**2)))*delta_t)
                     z_angle = ((((x_pos[n]*y_velocity[n])-(y_pos[n]*x_velocity[n]))/((x_pos[n]**2)+(y_pos[n]**2)+(z_pos[n]**2)))*delta_t)
-                    x_angle = (time[n]-time[n-1])*np.math.atan((z_pos[n]-z_pos[n-1])/(y_pos[n]-y_pos[n-1]))
+                    x_angle = np.math.atan((z_pos[n]-z_pos[n-1])/(y_pos[n]-y_pos[n-1]))/(time[n]-time[n-1])
                     #y_angle = 0
                     #z_angle = 0
                 #Add the calculated values to the columns to create an array
