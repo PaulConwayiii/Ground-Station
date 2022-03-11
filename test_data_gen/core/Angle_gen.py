@@ -10,6 +10,7 @@ import numpy as np
 import pandas as pd
 from pandas import DataFrame
 import os
+from .rotation import rotate
 
 def Generate_Angle(csv_name): 
     """
@@ -44,11 +45,20 @@ def Generate_Angle(csv_name):
                 delta_t = time[n+1] - time[n]
                 #Calculate the three angles
                 if z_pos[n] > 0:
-                    x_angle = ((((y_pos[n]*z_velocity[n])-(z_pos[n]*y_velocity[n]))/((x_pos[n]**2)+(y_pos[n]**2)+(z_pos[n]**2)))*delta_t)
+                    #x_angle = ((((y_pos[n]*z_velocity[n])-(z_pos[n]*y_velocity[n]))/((x_pos[n]**2)+(y_pos[n]**2)+(z_pos[n]**2)))*delta_t)
                     y_angle = ((((z_pos[n]*x_velocity[n])-(x_pos[n]*z_velocity[n]))/((x_pos[n]**2)+(y_pos[n]**2)+(z_pos[n]**2)))*delta_t)
                     z_angle = ((((x_pos[n]*y_velocity[n])-(y_pos[n]*x_velocity[n]))/((x_pos[n]**2)+(y_pos[n]**2)+(z_pos[n]**2)))*delta_t)
+                    x_angle = np.math.atan((z_pos[n]-z_pos[n-1])/((x_pos[n]-x_pos[n-1])*time[n]-time[n-1]))
+                    #y_angle = 0
+                    #z_angle = 0
                 #Add the calculated values to the columns to create an array
+
                 df = df.append(pd.Series([x_angle, y_angle, z_angle], index=df.columns), ignore_index = True)
+            print(str(len(list(df['z_angle']))))
+            print(str(len(list(TestData['time'][1:]))))
+            print(str(len(list(TestData['z_acceleration'][1:]))))
+            rot_angs = [list(df['x_angle']),list(df['y_angle']),list(df['z_angle'])]
+            rot_accel = rotate(rot_angs,list(TestData['time'][1:]),[list(TestData['x_acceleration'][1:]),list(TestData['y_acceleration'][1:]),list(TestData['z_acceleration'][1:])])
             print(str(x_angle))
             #Add the old imported columns to the new data frame
             df['x_pos'] = list(TestData['x_pos'][1:])
@@ -58,10 +68,13 @@ def Generate_Angle(csv_name):
             df['x_velocity'] = list(TestData['x_velocity'][1:])
             df['y_velocity'] = list(TestData['y_velocity'][1:])
             df['z_velocity'] = list(TestData['z_velocity'][1:])
-            df['x_acceleration'] = list(TestData['x_acceleration'][1:])
-            df['y_acceleration'] = list(TestData['y_acceleration'][1:])
-            df['z_acceleration'] = list(TestData['z_acceleration'][1:])
+            df['x_acceleration'] = rot_accel[0]
+            df['y_acceleration'] = rot_accel[1]
+            df['z_acceleration'] = rot_accel[2]
             df['pressure'] = list(TestData['pressure'][1:])
+            df['x_angle'] = rot_accel[0]
+            df['y_angle'] = rot_accel[1]
+            df['z_angle'] = rot_accel[2]
             #Rearrange all the columns to the desired pattern
             df = df.reindex(['time','x_pos','y_pos','z_pos','pressure','x_velocity','y_velocity','z_velocity','x_acceleration','y_acceleration','z_acceleration','x_angle','y_angle','z_angle'], axis='columns')
             #Export the new data frame arrays into the old csv, replacing the old with the new
