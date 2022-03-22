@@ -1,5 +1,6 @@
 import numpy as np
-
+import pandas as pd
+import os
 
 def extract(mode="live"):
     """
@@ -57,6 +58,47 @@ def extract(mode="live"):
                 # pressure
                 data[n, 13] = 1000000
 
+            # Metadata
+            mdata = {
+                "gyro_range" : 2000,
+                "gyro_res" : 2000/(2**16),
+                "accel_range" : 8,
+                "accel_res" : 8/(2**16),
+                "mag_range" : 2000,
+                "mag_res" : 2000/(2**16),
+                "C_D" : 1.1,
+                "A_f" : 0.008,
+                "m_i" : 10,
+                "m_f" : 5,
+                "burn_time" : 8,
+                "P_0" : 101325,
+                "T_0" : 277
+            }
+            return (data, mdata)
+        case "from_file":
+            #Define which files should be imported from the test data
+            col_list = ["time","pressure","x_acceleration","y_acceleration","z_acceleration","x_angle","y_angle","z_angle"]
+            #Define the name of the test data csv and import it
+            TestData = pd.read_csv(os.path.join(os.path.dirname(os.path.dirname(__file__)), "raw_data", "test_data_new_1.csv"), usecols=col_list)
+            #Gather all the info from the columns
+            time, pressure, x_accel, y_accel, z_accel, x_ang, y_ang, z_ang = TestData["time"], TestData["pressure"], TestData["x_acceleration"], TestData["y_acceleration"], TestData["z_acceleration"], TestData["x_angle"], TestData["y_angle"], TestData["z_angle"]
+            # t|axl|ayl|azl|axh|ayh|azh|wx|wy|wz|Ex|Ey|Ez|P
+            data = np.zeros((len(time),14))
+            for i,v in enumerate(time):
+                data[i,0] = v
+                data[i,1] = x_accel[i]
+                data[i,2] = y_accel[i]
+                data[i,3] = z_accel[i]
+                data[i,4] = x_accel[i]
+                data[i,5] = y_accel[i]
+                data[i,6] = z_accel[i]
+                data[i,7] = x_ang[i]
+                data[i,8] = y_ang[i]
+                data[i,9] = z_ang[i]
+                data[i,10] = 0
+                data[i,11] = 0
+                data[i,12] = 0
+                data[i,13] = pressure[i]
             # Metadata
             mdata = {
                 "gyro_range" : 2000,

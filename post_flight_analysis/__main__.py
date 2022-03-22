@@ -19,7 +19,7 @@ import core.force_calc
 
 def main():
     # Imports data. This will return a stuct containing the data in SI units and any metadata
-    base_data, mdata = core.data_in.extract(mode="test")
+    base_data, mdata = core.data_in.extract(mode="from_file")
     threshold = mdata["accel_range"]
     m_i = mdata["m_i"]
     m_f = mdata["m_f"]  
@@ -80,8 +80,19 @@ def main():
     plt.legend(["x","y","z","net"])
     plt.title("Acceleration, m/s")
 
-    plt.subplot(3,3,2)
+    plt.subplot(3,3,4)
+    plt.plot(time,vel_mag)
+    plt.legend("net")
+    plt.title("Velocity")
 
+
+    plt.subplot(3,3,7)
+    plt.plot(time,pos_x)
+    plt.plot(time,pos_y)
+    plt.plot(time,pos_z)
+    plt.plot(time,pos_mag)
+    plt.legend(["x","y","z","net"])
+    plt.title("Position, m/s")
 
     plt.show()
     return None

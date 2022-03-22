@@ -71,8 +71,8 @@ def rotate(omega, step, R_frame, nose_axis="z"):
         Q_2 = np.array([[c_beta, 0, s_beta], [0, 1, 0], [-s_beta, 0, c_beta]])
         Q_3 = np.array([[c_gamma, -s_gamma, 0], [s_gamma, c_gamma, 0], [0, 0, 1]])
         # This matrix combines all rotations
-        Q = np.matmul(np.matmul(Q_1, Q_2), Q_3)
-        Q = np.linalg.inv(Q)
+        Q = np.matmul(np.matmul(Q_3, Q_2), Q_1)
+        # Q = np.linalg.inv(Q)
 
         # Rotated vector
         raw_vec = [R_frame[0][n], R_frame[1][n], R_frame[2][n]]
