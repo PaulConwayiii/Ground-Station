@@ -123,7 +123,7 @@ def main():
     plt.plot(time,force[2])
     plt.plot(time,force_mag)
     plt.legend(["x","y","z","net"])
-    plt.title("Force, m")
+    plt.title("Force, N")
 
     #Plot Formatting
     plt.tight_layout(pad = 0.005)
