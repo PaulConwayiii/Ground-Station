@@ -11,6 +11,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import core.data_in
 import core.integrate
+
 # import core.ang_vel
 import core.ISA_Altitude_gen
 import core.rotation
@@ -39,7 +40,7 @@ def main():
 
     omega = np.vstack((base_data[:, 7], base_data[:, 8], base_data[:, 9]))
     compass = np.vstack((base_data[:, 10], base_data[:, 11], base_data[:, 12]))
-
+    phi = np.asarray((core.integrate.left_sum(time,omega[0]),core.integrate.left_sum(time,omega[1]),core.integrate.left_sum(time,omega[2])))
     pressure = base_data[:, 13]
 
     pressure_alt = core.ISA_Altitude_gen.ISA_altitude(pressure)
@@ -124,6 +125,14 @@ def main():
     plt.plot(time,force_mag)
     plt.legend(["x","y","z","net"])
     plt.title("Force, N")
+
+    #Angle from Vertical (x,y,z w.r.t. t)
+    plt.subplot(3,3,9)
+    plt.plot(time,phi[0])
+    plt.plot(time,phi[1])
+    plt.plot(time,phi[2])
+    plt.legend(["x","y","z"])
+    plt.title("Vertical Angle, phi")
 
     #Plot Formatting
     plt.tight_layout(pad = 0.005)
