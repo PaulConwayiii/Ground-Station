@@ -79,7 +79,7 @@ def extract(mode="live"):
             #Define which files should be imported from the test data
             col_list = ["time","pressure","x_acceleration","y_acceleration","z_acceleration","x_angle","y_angle","z_angle"]
             #Define the name of the test data csv and import it
-            TestData = pd.read_csv(os.path.join(os.path.dirname(os.path.dirname(__file__)), "raw_data", "test_data_new_1.csv"), usecols=col_list)
+            TestData = pd.read_csv(os.path.join(os.path.dirname(os.path.dirname(__file__)), "raw_data", "yae.csv"), usecols=col_list)
             #Gather all the info from the columns
             time, pressure, x_accel, y_accel, z_accel, x_ang, y_ang, z_ang = TestData["time"], TestData["pressure"], TestData["x_acceleration"], TestData["y_acceleration"], TestData["z_acceleration"], TestData["x_angle"], TestData["y_angle"], TestData["z_angle"]
             # t|axl|ayl|azl|axh|ayh|azh|wx|wy|wz|Ex|Ey|Ez|P

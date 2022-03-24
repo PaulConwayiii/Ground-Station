@@ -51,11 +51,13 @@ def rotate(omega, step, R_frame, nose_axis="z"):
     RR_y = np.zeros((len(step),))
     RR_z = np.zeros((len(step),))
 
+    delta_t = step[1] - step[0]
+
     # These are not really Euler angles (unless it's a special case where they happen to be)
     for n, s in enumerate(step):
-        alpha = omega[0][n] * s
-        beta = omega[1][n] * s
-        gamma = omega[2][n] * s
+        alpha = omega[0][n] * delta_t
+        beta = omega[1][n] * delta_t
+        gamma = omega[2][n] * delta_t
 
         # It's faster to do this once rather than compute these trig functions 12 times
         c_alpha = np.cos(alpha)
