@@ -21,7 +21,7 @@ import core.force_calc
 
 def main():
     # Imports data. This will return a stuct containing the data in SI units and any metadata
-    base_data, mdata = core.data_in.extract(mode="test")
+    base_data, mdata = core.data_in.extract(mode="from_file")
     threshold = mdata["accel_range"]
     m_i = mdata["m_i"]
     m_f = mdata["m_f"]  

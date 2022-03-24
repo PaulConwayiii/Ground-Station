@@ -23,7 +23,7 @@ def main():
     # TODO: Implement switch case to allow the user to select from a range of options, such as generate JSON, generate test data, etc.
     # Note: Switch cases are being implemented in Python 3.10, which is going to be released October 4th, 2021
     print(__doc__)
-    file_state = False  # Does the file exist?
+    file_state = False  # Does the file exist?foo
     while file_state == False:  # TODO: exception handling
         json_name = input(
             "Specify the name of a JSON file you would like to read from.\nIf no such file exists, you will be prompted if you would like to create it:\n"

@@ -1,10 +1,3 @@
-"""
-Author: Paul Conway
-
-This creates a plot object for angular velocity
-"""
-
-# Imports
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
