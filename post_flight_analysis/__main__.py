@@ -92,6 +92,13 @@ def main():
     plt.legend(["x","y","net"])
     plt.title("Down Range, m")
 
+    #Vertical Position, pressure altitude (z, hp, w.r.t. t)
+    plt.subplot(3,3,3)
+    plt.plot(time, pos_z)
+    plt.plot(time, pressure_alt)
+    plt.legend(["z","Hp"])
+    plt.title("z_position, pressure alt, m")
+
     #Velocity (x, y, z, mag w.r.t. t)
     plt.subplot(3,3,4)
     plt.plot(time,vel_x)
@@ -135,7 +142,7 @@ def main():
     plt.title("Vertical Angle, phi")
 
     #Plot Formatting
-    plt.tight_layout(pad = 0.005)
+    plt.tight_layout(pad = 0.5)
     plt.show()
     return None
 
