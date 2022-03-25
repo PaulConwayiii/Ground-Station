@@ -63,6 +63,7 @@ def main():
     pos = np.asarray([pos_x, pos_y, pos_z])
     xy_pos = [np.sqrt(pos[0][i]**2 + pos[1][i]**2) for i,_ in enumerate(time)]
     pos_mag = [np.sqrt(pos[0][i]**2 + pos[1][i]**2 + pos[2][i]**2) for i,_ in enumerate(time)]
+    alt_diff = [v-pressure_alt[i] for i,v in enumerate(pos_z)]
 
     force = core.force_calc.calculate_force(time, accel, m_i, m_f, burn_time)
     force_mag = [np.sqrt(force[0][i]**2 + force[1][i]**2 + force[2][i]**2) for i,_ in enumerate(time)]
@@ -94,10 +95,9 @@ def main():
 
     #Vertical Position, pressure altitude (z, hp, w.r.t. t)
     plt.subplot(3,3,3)
-    plt.plot(time, pos_z)
-    plt.plot(time, pressure_alt)
-    plt.legend(["z","Hp"])
-    plt.title("z_position, pressure alt, m")
+    plt.plot(time, alt_diff)
+    plt.legend(["diff"])
+    plt.title("pos_z - press. alt, m")
 
     #Velocity (x, y, z, mag w.r.t. t)
     plt.subplot(3,3,4)
@@ -134,7 +134,7 @@ def main():
     plt.title("Force, N")
 
     #Angle from Vertical (x,y,z w.r.t. t)
-    plt.subplot(3,3,9)
+    plt.subplot(3,3,6)
     plt.plot(time,phi[0])
     plt.plot(time,phi[1])
     plt.plot(time,phi[2])
