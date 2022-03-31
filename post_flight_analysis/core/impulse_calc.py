@@ -13,6 +13,7 @@ def calculate_impulse(mass_i, mass_f, vel_arr, ts_tb_arr, time_arr):
     z_momentum_arr = np.zeros([len(time_arr),1])
 
     for index in range(len(time_arr)):
+        # TODO: Change comparing float to comparing to within range of float
         if(time_arr[index]==t_S):
             t_S_index = index
         elif(time_arr[index]==t_B):
@@ -59,4 +60,6 @@ def calculate_impulse(mass_i, mass_f, vel_arr, ts_tb_arr, time_arr):
     momentum_mag_arr = calc_momentum_mag(momentum_arr)
     impulse_arr = left_sum(adjusted_time_arr, momentum_mag_arr)
 
-    return impulse_arr
+    impulse_total = [v * adjusted_time_arr[1]-adjusted_time_arr[0] for _,v in enumerate(impulse_arr)]
+
+    return (impulse_arr, impulse_total)
