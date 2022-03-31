@@ -141,6 +141,8 @@ def main():
     plt.legend(["x","y","z"])
     plt.title("Vertical Angle, phi")
 
+    # Table of Values goes here
+
     #Plot Formatting
     plt.tight_layout(pad = 0.5)
     plt.show()
