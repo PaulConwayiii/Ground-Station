@@ -17,6 +17,8 @@ import core.ISA_Altitude_gen
 import core.rotation
 import core.stitches
 import core.force_calc
+import core.impulse_calc
+import core.time_calc
 
 
 def main():
@@ -41,12 +43,12 @@ def main():
     omega = np.vstack((base_data[:, 7], base_data[:, 8], base_data[:, 9]))
     compass = np.vstack((base_data[:, 10], base_data[:, 11], base_data[:, 12]))
     phi = np.asarray((core.integrate.left_sum(time,omega[0]),core.integrate.left_sum(time,omega[1]),core.integrate.left_sum(time,omega[2])))
+    phi_mag = [np.sqrt(phi[0][i]**2 + phi[1][i]**2 + phi[2][i]**2) for i,_ in enumerate(time)]
     pressure = base_data[:, 13]
 
     pressure_alt = core.ISA_Altitude_gen.ISA_altitude(pressure)
-
-    # TODO: Callibarte pressure
-    # TODO: Callibrate angular position
+    # TODO: Calibrate pressure
+    # TODO: Calibrate angular position
 
     # Rotating vectors
     accel = core.rotation.rotate(omega,time,accel)
@@ -71,7 +73,8 @@ def main():
     # TODO: Calculate aero forces
 
     # TODO: Calculate impulse
-
+    #ts_tb_arr = np.asarray(core.time_calc.calc_time(accel, time))
+    #impulse = core.impulse_calc.calculate_impulse(m_i, m_f, vel, ts_tb_arr, time)[1]
     # TODO: Calculate ISA and accel calculated altitude divergence
 
     # Plottting happens here:
@@ -142,7 +145,36 @@ def main():
     plt.title("Vertical Angle, phi")
 
     # Table of Values goes here
+    max_accel = np.around(np.max(accel_mag),decimals=3)
+    max_accel_time = np.around(time[np.argmax(accel_mag)],decimals=3)
 
+    max_force = np.around(np.max(force_mag),decimals=3)
+    max_force_time = np.around(time[np.argmax(force_mag)],decimals=3)
+
+    max_vel = np.around(np.max(vel_mag),decimals=3)
+    max_vel_time = np.around(time[np.argmax(vel_mag)],decimals=3)
+
+    max_alt = np.around(np.max(pos_z),decimals=3)
+    max_alt_time = np.around(time[np.argmax(pos_z)],decimals=3)
+
+    max_downrange = np.around(np.max(xy_pos),decimals=3)
+    max_downrange_time = np.around(time[np.argmax(xy_pos)],decimals=3)
+
+    max_angle = np.around(np.max(phi_mag),decimals=3)
+    max_angle_time = np.around(time[np.argmax(phi_mag)],decimals=3)
+
+    #total_impulse = np.around(np.max(impulse),decimals=3)
+    #total_impulse_time = np.around(time[np.argmax(impulse)],decimals=3)
+
+
+    ax = plt.subplot(3,3,9)
+    plt.title("Max Values")
+    data = [["Max Accel",str(max_accel)+" m/s^2",str(max_accel_time)+" s"],["Max Force",str(max_force)+" N",str(max_force_time)+" s"],["Max Velocity",str(max_vel)+" m/s",str(max_vel_time)+" s"],["Max Altitude",str(max_alt)+" m",str(max_alt_time)+" s"],["Max Downrange",str(max_downrange)+" m",str(max_downrange_time)+" s"],["Total Impulse","?????"+" N*s","?????"+" s"],["Max Angle",str(max_angle)+" rad",str(max_angle_time)+" s"]]
+    ax.axis("tight")
+    ax.axis("off")
+    table = ax.table(cellText=data,loc="center")
+    table.auto_set_font_size(False)
+    table.set_fontsize(7)
     #Plot Formatting
     plt.tight_layout(pad = 0.5)
     plt.show()
