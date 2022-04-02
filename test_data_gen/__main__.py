@@ -19,10 +19,12 @@ import os
 import regex
 
 
+
 def main():
     # TODO: Implement switch case to allow the user to select from a range of options, such as generate JSON, generate test data, etc.
     # Note: Switch cases are being implemented in Python 3.10, which is going to be released October 4th, 2021
     print(__doc__)
+
     file_state = False  # Does the file exist?foo
     while file_state == False:  # TODO: exception handling
         json_name = input(
@@ -35,6 +37,7 @@ def main():
         json_path = os.path.join(
             os.path.dirname(os.path.realpath(__file__)), "local_data", "json", json_name
         )
+
         if os.path.isfile(json_path) == False:
             pref_new = input(
                 json_name + " does not exist, would you like to create it? (y/n)\n"
@@ -57,6 +60,7 @@ def main():
     print("Angular position generated!")
 
     return None
+
 
 
 if __name__ == "__main__":

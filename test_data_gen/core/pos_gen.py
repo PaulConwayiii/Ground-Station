@@ -22,8 +22,10 @@ def generate(json_path):
         b = json_data["y_weight"]
         c = 9.80665  # Standard gravitational acceleration
         h = json_data["altitude"]
+
         p0 = 101325  # N/m^2 - Pressure at sea level
         T0 = 288.15  # K - Temperature at sea level
+
         noise_level = json_data["noise_level"]
         json_name = json_data["json_name"]
         steps_per_second = json_data["steps_per_second"]

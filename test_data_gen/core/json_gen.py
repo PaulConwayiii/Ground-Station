@@ -12,6 +12,7 @@ import json
 import math
 
 
+
 def generate(json_name, json_path):
     # TODO: input checking
     x_range = float(input("Specify a max X distance (m): "))
@@ -25,7 +26,8 @@ def generate(json_name, json_path):
             0:-5
         ],  # TODO: Use regex to get this from the json_path string
         "x_weight": (
-            x_range / 2 * math.sqrt(9.80665 / altitude)
+            x_range / 2 * 
+          .sqrt(9.80665 / altitude)
         ),  # Calculated based on standard gravity
         "y_weight": (
             y_range / 2 * math.sqrt(9.80665 / altitude)
